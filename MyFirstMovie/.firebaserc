@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "myfirstmovie-14716": {
+      "hosting": {
+        "MyFirstMovie": [
+          "myfirstmovie-14716"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "myfirstmovie-14716"
+  }
+}
