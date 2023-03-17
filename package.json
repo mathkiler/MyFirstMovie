@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/fire": "^7.5.0",
+    "bootstrap": "^5.2.3"
+  }
+}
