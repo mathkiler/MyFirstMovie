@@ -18,7 +18,7 @@ export class DataService {
     return this.movieRef;
    }
 
-   async addMovie(idMovie1:number, jpgMovie1:string,idMovie2:number, jpgMovie2:string) {
+   async addMovie(idMovie1:number, jpgMovie1:string,idMovie2:number, jpgMovie2:string, dateTime:number) {
     let long = 1
     const firestore = getFirestore();
   const userCollectionReference = collection(firestore, "bataille");
@@ -30,8 +30,16 @@ export class DataService {
         url_image2: jpgMovie2,
         id_movie2: idMovie2,
         nombre_vote1: 0,
-        nombre_vote2: 0
+        nombre_vote2: 0,
+        date_fin: dateTime
       })
    }
+
+    getBataille(long: number) {
+  console.log(long)
+  let last_bataille = ( this.db.collection(this.dbPath).doc(long.toString()).ref.get())
+  console.log(last_bataille)
+  return last_bataille
+  
    
-}
+}}
