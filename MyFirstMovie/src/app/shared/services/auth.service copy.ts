@@ -7,12 +7,9 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { getFirestore } from "firebase/firestore";
-import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environements/environment';
-
-const app = initializeApp(environment["firebase"]);
-export const db = getFirestore(app);
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +20,13 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private http: HttpClient
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        console.log("test")
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
@@ -46,11 +43,7 @@ export class AuthService {
       .then((result) => {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
-          console.log("ttttttt")
-          console.log(user)
           if (user) {
-            console.log("yyyyy")
-            
             this.router.navigate(['bataille']);
           }
         });
@@ -100,9 +93,8 @@ export class AuthService {
 
   // Sign in with Google
   GoogleAuth() {
-    console.log()
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['bataille']);
+      this.router.navigate(['dashboard']);
     });
   }
   // Auth logic to run auth providers
@@ -110,7 +102,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result)
+        this.router.navigate(['dashboard']);
         this.SetUserData(result.user);
       })
       .catch((error) => {
@@ -121,7 +113,6 @@ export class AuthService {
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user: any) {
-    
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -132,11 +123,9 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
     };
-    console.log(userData)
     return userRef.set(userData, {
       merge: true,
     });
-    
   }
   // Sign out
   SignOut() {

@@ -13,7 +13,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-
+import { BatailleComponent } from './components/bataille/bataille.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -23,14 +24,16 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    BatailleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [AuthService, {provide : FIREBASE_OPTIONS, useValue: environment.firebase}],
   bootstrap: [AppComponent]

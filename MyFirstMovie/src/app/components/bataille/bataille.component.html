@@ -1,0 +1,30 @@
+
+
+<div class="displayTable">
+    <div class="displayTableCell">
+      <div class="authBlock">
+        
+        
+        <div class="formGroup">
+          <span class="button" (click)="getMvi()">obtenir un film</span>
+          <span style="float: right;" type="submit" class="btn btnPrimary" (click)="authService.SignOut()">Déconnexion</span>  
+        </div>
+            
+        <div class="formGroup" style="float: left">
+            <h3>{{nameMovie1}}</h3>
+          </div>
+          <div class="formGroup" style="float: right">
+            <h3>{{nameMovie2}}</h3>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        <div class="formGroup">
+            <img style="float: left" src="{{ urlImage1 }}" alt="{{ nameMovie1 }}"/>
+            <img style="float: right" src="{{ urlImage2 }}" alt="{{ nameMovie2 }}"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  

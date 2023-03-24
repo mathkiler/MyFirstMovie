@@ -3,7 +3,7 @@
   <div class="displayTableCell">
     <div class="authBlock">
       
-      <h3 style="color:#fff">S'identifier</h3>
+      <h3 style="color:#fff">Se connecter</h3>
       <div class="input-container">
         <input type="text" class="formControl"  #userName required>
         <label>Mail</label>
@@ -14,7 +14,7 @@
       </div>
       <!-- Calling SignIn Api from AuthService -->
       <div class="formGroup">
-        <span class="button" (click)="authService.SignIn(userName.value, userPassword.value)">S'identifier</span>
+        <span class="button" (click)="authService.SignIn(userName.value, userPassword.value)">Se connecter</span>
       </div>
       <div class="formGroup">
         <span class="or"><span style="color:#fff" class="orInner">Ou</span></span>
@@ -23,7 +23,7 @@
       <div class="formGroup">
         <span type="button" class="button" (click)="authService.GoogleAuth()">
           <i style="color:#fff" class="fab fa-google-plus-g"></i>
-          S'identifier avec Google
+          Se connecter avec Google
         </span>
       </div>
       <div class="forgotPassword">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="redirectToLogin">
-      <span style="color:#fff">Vous n'avez pas de compte ?<span class="redirect" routerLink="/register-user"> S'identifier</span></span>
+      <span style="color:#fff">Vous n'avez pas de compte ?<span class="button" routerLink="/register-user"> S'inscrire</span></span>
     </div>
   </div>
 </div>

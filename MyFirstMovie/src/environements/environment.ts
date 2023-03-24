@@ -8,6 +8,5 @@ export const environment = {
       storageBucket: "myfirstmovie-14716.appspot.com",
       messagingSenderId: "259980805201",
       appId: "1:259980805201:web:08c29d35f218501e076470"
-    
     }
   };
