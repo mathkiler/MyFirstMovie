@@ -15,6 +15,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { BatailleComponent } from './components/bataille/bataille.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HistoriqueComponent } from './components/historique/historique.component';
 
 
 
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
-    BatailleComponent
+    BatailleComponent,
+    HistoriqueComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { IDBataille } from './bataille';
 import { getCountFromServer, getFirestore, collection } from 'firebase/firestore';
+import { AuthService } from './shared/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +37,32 @@ export class DataService {
    }
 
     getBataille(long: number) {
-  console.log(long)
-  let last_bataille = ( this.db.collection(this.dbPath).doc(long.toString()).ref.get())
-  console.log(last_bataille)
-  return last_bataille
-  
-   
-}}
+  let last_bataille = (this.db.collection(this.dbPath).doc(long.toString()).ref.get())
+  return last_bataille 
+  }
+
+  async updateVote(qui_vote:number) {
+    let long = 1
+    const firestore = getFirestore();
+  const userCollectionReference = collection(firestore, "bataille");
+  const userCollectionSnapshot = await getCountFromServer(userCollectionReference);
+  long = userCollectionSnapshot.data().count-1;
+  const collect = (await this.db.collection(this.dbPath).doc(long.toString()).ref.get()).data()
+    let tamp = JSON.parse(JSON.stringify(collect))
+    let nb_vote1 = tamp["nombre_vote1"]
+    let nb_vote2 = tamp["nombre_vote2"]
+
+  if (qui_vote == 1)
+    this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote1:nb_vote1+1})
+  else 
+    this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote2:nb_vote2+1})
+
+    // this.db.collection("/users").doc(users).update({nombre_vote2:nb_vote2+1})
+
+ 
+
+
+  }
+
+
+}

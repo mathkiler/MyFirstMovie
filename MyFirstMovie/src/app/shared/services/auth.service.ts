@@ -131,6 +131,7 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      voteVoter:false,
     };
     console.log(userData)
     return userRef.set(userData, {

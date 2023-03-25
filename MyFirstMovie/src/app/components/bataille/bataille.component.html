@@ -6,25 +6,37 @@
         
         
         <div class="formGroup">
-          <span class="button" (click)="getMvi()">obtenir un film</span>
+          <span class="button" (click)="getMvi()">Rafraîchir</span>
           <span style="float: right;" type="submit" class="btn btnPrimary" (click)="authService.SignOut()">Déconnexion</span>  
         </div>
             
         <div class="formGroup" style="float: left">
-            <h3>{{nameMovie1}}</h3>
+            
           </div>
           <div class="formGroup" style="float: right">
-            <h3>{{nameMovie2}}</h3>
           </div>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+        <br>
+        <div class="flex-container">
+          <div class="film1Box">
+            <h3>{{nameMovie1}}</h3>
+            <img style="cursor:pointer;" src="{{ urlImage1 }}" alt="{{ nameMovie1 }}" (click)="plus1VoteFilm1()"/>
+          </div>
+          <div class="film2Box">
+            <h3>{{nameMovie2}}</h3>
+            <img style="cursor:pointer;" src="{{ urlImage2 }}" alt="{{ nameMovie2 }}" (click)="plus1VoteFilm2()"/>
+          </div>
+          
+        </div>
+        <div class="upper">
+          <div [style.wdth] = "pourcent1" class="progress-bar1"></div>
+          <div class="progress-bar2"></div>
+        </div>
+        <div>
+          <h3 class="title1">{{pourcent1}}%</h3>
+          <h3 class="title2">{{pourcent2}}%</h3>
+        </div>
         <div class="formGroup">
-            <img style="float: left" src="{{ urlImage1 }}" alt="{{ nameMovie1 }}"/>
-            <img style="float: right" src="{{ urlImage2 }}" alt="{{ nameMovie2 }}"/>
+          <span class="button" routerLink="/historique">Historique des films</span>
         </div>
       </div>
     </div>
