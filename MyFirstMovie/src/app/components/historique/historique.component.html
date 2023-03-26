@@ -13,10 +13,10 @@
         <span class="badge">{{fight.name2}} </span>
       </div>
       
-      <svg width="400" height="110">
-        <rect x="50" y="20" [attr.width]= "(fight.percent)*3"   height="12"
+      <svg width="600" height="50">
+        <rect x="50" y="20" [attr.width]= "(fight.percent)*4"   height="12"
         style="fill:#af71af;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
-        <rect  [attr.x]= "50+(fight.percent)*3"  y="20" [attr.width]= "(100-fight.percent)*3"   height="12"
+        <rect  [attr.x]= "50+(fight.percent)*4"  y="20" [attr.width]= "(100-fight.percent)*4"   height="12"
         style="fill:#40d522;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
       </svg>
 
