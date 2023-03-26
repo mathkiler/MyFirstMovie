@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { IDBataille } from './bataille';
 import { getCountFromServer, getFirestore, collection } from 'firebase/firestore';
 import { AuthService } from './shared/services/auth.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,15 @@ export class DataService {
         nombre_vote2: 0,
         date_fin: dateTime
       })
+    this.db.collection("/users").get().subscribe(users => {
+    console.log("alllhfhl", users)
+
+    })
+    
+
+
+    
+
    }
 
     getBataille(long: number) {
@@ -42,25 +52,28 @@ export class DataService {
   }
 
   async updateVote(qui_vote:number) {
-    let long = 1
-    const firestore = getFirestore();
-  const userCollectionReference = collection(firestore, "bataille");
-  const userCollectionSnapshot = await getCountFromServer(userCollectionReference);
-  long = userCollectionSnapshot.data().count-1;
-  const collect = (await this.db.collection(this.dbPath).doc(long.toString()).ref.get()).data()
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const collect = (await this.db.collection("/users").doc(user.uid).ref.get()).data()
     let tamp = JSON.parse(JSON.stringify(collect))
-    let nb_vote1 = tamp["nombre_vote1"]
-    let nb_vote2 = tamp["nombre_vote2"]
+    if (tamp["voteVoter"] == false) {
+      let long = 1
+      const firestore = getFirestore();
+      const userCollectionReference = collection(firestore, "bataille");
+      const userCollectionSnapshot = await getCountFromServer(userCollectionReference);
+      long = userCollectionSnapshot.data().count-1;
+      const collect = (await this.db.collection(this.dbPath).doc(long.toString()).ref.get()).data()
+      let tamp = JSON.parse(JSON.stringify(collect))
+      let nb_vote1 = tamp["nombre_vote1"]
+      let nb_vote2 = tamp["nombre_vote2"]
 
-  if (qui_vote == 1)
-    this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote1:nb_vote1+1})
-  else 
-    this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote2:nb_vote2+1})
+    
+      if (qui_vote == 1)
+        this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote1:nb_vote1+1})
+      else 
+        this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote2:nb_vote2+1})
 
-    // this.db.collection("/users").doc(users).update({nombre_vote2:nb_vote2+1})
-
- 
-
+      this.db.collection("/users").doc(user.uid).update({voteVoter:true})
+    }
 
   }
 

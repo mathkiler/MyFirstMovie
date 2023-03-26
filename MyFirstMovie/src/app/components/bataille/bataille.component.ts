@@ -22,7 +22,7 @@ export class BatailleComponent implements OnInit {
   public urlImage1 = ""
   public urlImage2 = ""
   public pourcent1 = 0
-  public pourcent2 = 100
+  public pourcent2 = 0
   public hiddePourcent = true
   afs: any;
   constructor(
@@ -42,7 +42,7 @@ export class BatailleComponent implements OnInit {
 
 
     let add_a_bataille = false
-    if (last_bataille_json["date_fin"] <= new Date().getTime()) {
+    if (last_bataille_json["date_fin"] >= new Date().getTime()) {
       this.idMovie1 = Math.floor(Math.random() * 500);
       this.idMovie2 = Math.floor(Math.random() * 500);
       add_a_bataille = true
@@ -100,12 +100,14 @@ export class BatailleComponent implements OnInit {
     }}
 
     public plus1VoteFilm1() {
+
       this.dataService.updateVote(1)
       this.calcVote()
       this.hiddePourcent = false
     }
 
     public plus1VoteFilm2() {
+
       this.dataService.updateVote(2)
       this.calcVote()
       this.hiddePourcent = false

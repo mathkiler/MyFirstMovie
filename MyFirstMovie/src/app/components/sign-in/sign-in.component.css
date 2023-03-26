@@ -42,7 +42,7 @@ body {
   }
   .button:hover::before {
     opacity: 1;
-    background-color: #1d0317;
+    background-color: #2de7e4;
     -webkit-transform: scaleY(1);
     transform: scaleY(1);
     transition: -webkit-transform 0.6s cubic-bezier(0.08, 0.35, 0.13, 1.02), opacity 0.4s;

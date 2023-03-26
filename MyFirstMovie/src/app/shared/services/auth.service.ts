@@ -29,7 +29,6 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        console.log("test")
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
@@ -46,10 +45,7 @@ export class AuthService {
       .then((result) => {
         this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
-          console.log("ttttttt")
-          console.log(user)
           if (user) {
-            console.log("yyyyy")
             
             this.router.navigate(['bataille']);
           }
@@ -95,14 +91,14 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log("uuuuuu", user)
     return (user !== null && user.emailVerified !== false) ? true : false;
   }
 
   // Sign in with Google
   GoogleAuth() {
-    console.log()
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['bataille']);
+      
     });
   }
   // Auth logic to run auth providers
@@ -110,8 +106,9 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result)
+        console.log(result.user)
         this.SetUserData(result.user);
+        this.router.navigate(['bataille']);
       })
       .catch((error) => {
         window.alert(error);
@@ -131,9 +128,9 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      voteVoter:false,
+      voteVoter: false,
     };
-    console.log(userData)
+    console.log(userData.voteVoter)
     return userRef.set(userData, {
       merge: true,
     });
