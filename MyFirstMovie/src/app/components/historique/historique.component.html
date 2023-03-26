@@ -2,5 +2,34 @@
 
 
 <div class="formGroup">
-    <span class="button" routerLink="/bataille">Retour</span>
+    
+    <li *ngFor="let fight of old_bataille" >
+
+
+      <div class="formGroup">
+        <span class="badge">{{fight.name1}} </span>        
+        <span class="badge">{{fight.percent}} % | </span>
+        <span class="badge">{{(100-fight.percent)}} % </span>
+        <span class="badge">{{fight.name2}} </span>
+      </div>
+      
+      <svg width="400" height="110">
+        <rect x="50" y="20" [attr.width]= "(fight.percent)*3"   height="12"
+        style="fill:#af71af;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
+        <rect  [attr.x]= "50+(fight.percent)*3"  y="20" [attr.width]= "(100-fight.percent)*3"   height="12"
+        style="fill:#40d522;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
+      </svg>
+
+    </li>
+    <div class="formGroup" >
+       <span id="myDIV" style="float: left;" type="submit" class="btn btnPrimary"  (click)="changePage(-1)">page precedent</span>
+      <span id="myDIV2" style="float: right;" type="submit" class="btn btnPrimary" (click)="changePage(1)">page suivant </span>  
+    </div> 
+
+    
+    
   </div>
+  <br> <br> <br> <br> <br>
+
+  <div class="button" routerLink="/bataille">Retour</div>
+  <div class="badge">page : {{page}} / {{maxpage}}</div>
