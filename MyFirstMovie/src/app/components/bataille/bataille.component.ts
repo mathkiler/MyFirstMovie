@@ -29,7 +29,9 @@ export class BatailleComponent implements OnInit {
     public apiService:APIService, public authService: AuthService,public dataService: DataService
   ) { }
   ngOnInit() { 
+    console.log(this.getimage())
     this.getMvi()
+    
   }
   public async getMvi(){
     let long = 1
@@ -42,7 +44,7 @@ export class BatailleComponent implements OnInit {
 
 
     let add_a_bataille = false
-    if (last_bataille_json["date_fin"] >= new Date().getTime()) {
+    if (last_bataille_json["date_fin"] <= new Date().getTime()) {
       this.idMovie1 = Math.floor(Math.random() * 500);
       this.idMovie2 = Math.floor(Math.random() * 500);
       add_a_bataille = true
@@ -53,62 +55,77 @@ export class BatailleComponent implements OnInit {
     }
 
 
+    
     this.apiService.getMovie(this.idMovie1).subscribe(a => {
       let tamp = JSON.parse(JSON.stringify(a))
       console.log("lepass : ", tamp)
       this.nameMovie1 = tamp["title"]
       this.jpgMovie1 = tamp["poster_path"]
-      if (this.jpgMovie1 == null) {
-        this.getMvi()
-        add_a_bataille = false
-        return
-      }
-      this.getImg(1, add_a_bataille)
-    },(error) => {
-      this.getMvi()
-      return
+      this.getImg1()
     })
     
       this.apiService.getMovie(this.idMovie2).subscribe(b => {
         let tamp = JSON.parse(JSON.stringify(b))
         this.nameMovie2 = tamp["title"]
         this.jpgMovie2 = tamp["poster_path"]
-        if (this.jpgMovie2 == null) {
-          this.getMvi()
-          add_a_bataille = false
-          return
-        }
-        this.getImg(2, add_a_bataille)
-    },(error) => {
-      this.getMvi()
-      return
-    })
-    if (this.hiddePourcent == false) 
-      this.calcVote()
-    
-  }
-  public getImg(num_film:number, add_a_bataille: boolean){
-    if ( num_film == 1 ) {
-    this.urlImage1 = this.apiService.getImageMovie(this.jpgMovie1)
-    }
-    else {
-    this.urlImage2 = this.apiService.getImageMovie(this.jpgMovie2)
 
-      if ( add_a_bataille && this.urlImage1 != "" && this.urlImage2 != "" && this.urlImage1 != this.urlImage2) {
-        this.dataService.addMovie(this.idMovie1, this.urlImage1, this.idMovie2, this.urlImage2, new Date().getTime()+60*60*1000)
+        this.getImg2()
+      })
+
+      if ( add_a_bataille ) {
+        this.dataService.addMovie(this.idMovie1, this.urlImage1, this.idMovie2, this.urlImage2, new Date().getTime()+60*1000)
       }
-    }}
 
-    public plus1VoteFilm1() {
+    let info_user = await this.dataService.getUsers()
+    
 
-      this.dataService.updateVote(1)
+    if (info_user["voteVoter"] >= last_bataille_json["date_fin"])
+      this.calcVote()
+    else {
+      this.hide("hiddepourcentage")
+    }
+ 
+  }
+
+  public getimage()
+  {
+    while(this.jpgMovie1 == "")
+    {
+      this.idMovie1 = Math.floor(Math.random() * 500);
+      this.apiService.getMovie(this.idMovie1).subscribe(a => {
+        let tamp = JSON.parse(JSON.stringify(a))
+       
+        console.log("lepass : ", tamp)
+        this.nameMovie1 = tamp["title"]
+        this.jpgMovie1 = tamp["poster_path"]
+        console.log("ball",this.jpgMovie1)
+        return 
+      })
+      console.log(this.jpgMovie1)
+      break
+    }
+    //let url = this.apiService.getImageMovie(this.jpgMovie1)
+    return this.jpgMovie1
+  }
+
+  public getImg1(){
+    this.urlImage1 = this.apiService.getImageMovie(this.jpgMovie1)
+  }
+
+  public getImg2() {
+    this.urlImage2 = this.apiService.getImageMovie(this.jpgMovie2)
+    }
+
+    public async plus1VoteFilm1() {
+
+      await this.dataService.updateVote(1)
       this.calcVote()
       this.hiddePourcent = false
     }
 
-    public plus1VoteFilm2() {
+    public async plus1VoteFilm2() {
 
-      this.dataService.updateVote(2)
+      await this.dataService.updateVote(2)
       this.calcVote()
       this.hiddePourcent = false
     }
@@ -126,7 +143,26 @@ export class BatailleComponent implements OnInit {
         this.pourcent2 = Math.round(100*last_bataille_json["nombre_vote2"]/(last_bataille_json["nombre_vote1"]+last_bataille_json["nombre_vote2"]))
       document.documentElement.style.setProperty('--pourcent1-width', this.pourcent1.toString()+"%")
       document.documentElement.style.setProperty('--pourcent2-width', this.pourcent2.toString()+"%")
+      this.show("hiddepourcentage")
     }
   
 
+    hide(id:string) {
+      var x = document.getElementById(id);
+        if(x!=null)
+        {
+          x.hidden = true
+      }}
+  
+    show(id:string) {
+      var x = document.getElementById(id);
+        if(x!=null)
+        {
+          x.hidden = false
+      }}
+
+
 }
+
+
+
