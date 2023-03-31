@@ -4,5 +4,6 @@ export interface User {
     displayName: string;
     photoURL: boolean;
     emailVerified: boolean;
-    voteVoter: number;
+    voteVoter: boolean;
+    dateFinBatailleActu: number;
 }

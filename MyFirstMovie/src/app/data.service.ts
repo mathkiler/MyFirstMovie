@@ -67,8 +67,7 @@ export class DataService {
     long = userCollectionSnapshot.data().count-1;
     const collect2 = (await this.db.collection(this.dbPath).doc(long.toString()).ref.get()).data()
     let tamp2 = JSON.parse(JSON.stringify(collect2))
-    let date_fin_bataille_actu = tamp2["date_fin"]
-    if (tamp["voteVoter"] <= date_fin_bataille_actu) {
+    if (tamp["voteVoter"] == false) {
 
       let nb_vote1 = tamp2["nombre_vote1"]
       let nb_vote2 = tamp2["nombre_vote2"]
@@ -78,7 +77,8 @@ export class DataService {
       else 
         this.db.collection(this.dbPath).doc(long.toString()).update({nombre_vote2:nb_vote2+1})
 
-      this.db.collection("/users").doc(user.uid).update({voteVoter:new Date().getTime()})
+      this.db.collection("/users").doc(user.uid).update({voteVoter:true})
+      this.db.collection("/users").doc(user.uid).update({dateFinBatailleActu:tamp2["date_fin"]})
     }
 
   }

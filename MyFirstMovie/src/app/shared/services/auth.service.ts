@@ -46,7 +46,7 @@ export class AuthService {
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             
-            this.router.navigate(['sign-up']);
+            this.router.navigate(['bataille']);
           }
         });
       })
@@ -63,6 +63,7 @@ export class AuthService {
         up and returns promise */
         this.SendVerificationMail();
         this.SetUserData(result.user);
+        this.router.navigate(['sign-in']);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -128,7 +129,8 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      voteVoter: 0,
+      voteVoter: false,
+      dateFinBatailleActu:0
     };
     console.log(userData.voteVoter)
     return userRef.set(userData, {

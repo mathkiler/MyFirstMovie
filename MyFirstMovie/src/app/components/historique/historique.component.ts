@@ -149,10 +149,6 @@ public async setname (idMovie1:number, idMovie2:number, i :number)
     let tamp =  JSON.parse(JSON.stringify(b));
     let nameMovie1 = tamp["title"];
     this.old_bataille[i].name1 = nameMovie1;
-    console.log(nameMovie1)
-    
-  }, (error) => {
-
     
   })
 
@@ -160,10 +156,6 @@ public async setname (idMovie1:number, idMovie2:number, i :number)
     let tamp =  JSON.parse(JSON.stringify(b));
     let nameMovie2 = tamp["title"];
     this.old_bataille[i].name2 = nameMovie2;
-    console.log(nameMovie2)
-    
-  }, (error) => {
-
     
   })
 
