@@ -25,7 +25,10 @@ export class BatailleComponent implements OnInit {
   public pourcent1 = 0
   public pourcent2 = 0
   public hiddePourcent = true
-  public bannedId: number[] = [0,1,4,7,9,10,23,29,30,31,32,34,36,37,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,56,57,60,61,72,84,119,130,131,317,151,181,188,202,208,209,210,230,263,264,282,283,286,295,304,305, 323,324,325,328,352,353,354,355,356,357,358,359,360,361,362,365,366,367,368,369,370,371,372,373,374,374,375,376,282,384,385,386,394,399,412,413,415,416,417,418,420,432,443,444,447,448,449,450,456,461,363,472,474,477,478,484,485,486,487,495,498]
+  public bannedId: number[] = [0,1,4,7,9,10,23,29,30,31,32,34,36,37,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,56,57,
+    60,61,72,84,119,130,131,317,151,181,188,202,208,209,210,230,263,264,282,283,286,295,304,305, 323,324,325,328,352,353,
+    354,355,356,357,358,359,360,361,362,365,366,367,368,369,370,371,372,373,374,374,375,376,282,384,385,386,394,399,412,
+    413,415,416,417,418,420,432,443,444,447,448,449,450,456,461,363,472,474,477,478,484,485,486,487,495,498]
   afs: any;
   constructor(
     public apiService:APIService, public authService: AuthService,public dataService: DataService, private db: AngularFirestore
@@ -97,7 +100,7 @@ export class BatailleComponent implements OnInit {
     this.urlImage2 = this.apiService.getImageMovie(this.jpgMovie2)
     let minus_one = 1
     if ( add_a_bataille ) {
-      await this.dataService.addMovie(this.idMovie1, this.urlImage1, this.idMovie2, this.urlImage2, new Date().getTime()+60*3*1000)
+      await this.dataService.addMovie(this.idMovie1, this.urlImage1, this.idMovie2, this.urlImage2, new Date().getTime()+60*60*1000)
       minus_one = 0
     }
 

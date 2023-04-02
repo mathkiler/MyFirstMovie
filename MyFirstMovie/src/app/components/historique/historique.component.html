@@ -13,7 +13,7 @@
         <span class="badge">{{fight.name2}} </span>
       </div>
       
-      <svg width="400" height="110">
+      <svg width="400" height="70">
         <rect x="50" y="20" [attr.width]= "(fight.percent)*3"   height="12"
         style="fill:#af71af;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
         <rect  [attr.x]= "50+(fight.percent)*3"  y="20" [attr.width]= "(100-fight.percent)*3"   height="12"
@@ -29,7 +29,7 @@
     
     
   </div>
-  <br> <br> <br> <br> <br>
+  <br> <br> <br> 
 
   <div class="button" routerLink="/bataille">Retour</div>
   <div class="badge">page : {{page}} / {{maxpage}}</div>
