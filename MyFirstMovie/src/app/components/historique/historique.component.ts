@@ -55,8 +55,6 @@ export class HistoriqueComponent {
       console.log(last_bataille)
       let last_bataille_json = JSON.parse(JSON.stringify((await last_bataille).data()))
       await this.setname (last_bataille_json["id_movie1"],last_bataille_json["id_movie2"],i)
-      last_bataille_json.nombre_vote2 = Math.round(Math.random()*100)
-      last_bataille_json.nombre_vote1 = Math.round(Math.random()*100)
       last_bataille_json.percent = Math.round(100*last_bataille_json.nombre_vote1/(last_bataille_json.nombre_vote1 + last_bataille_json.nombre_vote2))
       console.log(last_bataille_json.nombre_vote2)
       console.log(last_bataille_json.nombre_vote1)
