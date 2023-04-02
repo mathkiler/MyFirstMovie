@@ -14,7 +14,7 @@ export class APIService {
     getMovie(id:number): Observable<IDBataille> {
       return this.http.get<IDBataille>(this.baseurl + 'movie/' + id + this.apikey)
     }
-    getImageMovie(jpg:string): string {
+    getImageMovie(jpg:any): string {
       return this.baseurlimage + "w342" + jpg
     }
 }

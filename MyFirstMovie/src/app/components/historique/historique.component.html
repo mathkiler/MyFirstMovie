@@ -1,4 +1,4 @@
-<h1>ICI c'est l'Historique !!!</h1>
+<h1>Historique des batailles</h1>
 
 
 <div class="formGroup">
@@ -13,8 +13,11 @@
         <span class="badge">{{fight.name2}} </span>
       </div>
       
+
       <svg width="600" height="50">
         <rect x="50" y="20" [attr.width]= "(fight.percent)*4"   height="12"
+
+
         style="fill:#af71af;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
         <rect  [attr.x]= "50+(fight.percent)*4"  y="20" [attr.width]= "(100-fight.percent)*4"   height="12"
         style="fill:#40d522;stroke:rgb(255, 255, 255);stroke-width:1;fill-opacity:1;stroke-opacity:1" />
@@ -22,14 +25,14 @@
 
     </li>
     <div class="formGroup" >
-       <span id="myDIV" style="float: left;" type="submit" class="btn btnPrimary"  (click)="changePage(-1)">page precedent</span>
-      <span id="myDIV2" style="float: right;" type="submit" class="btn btnPrimary" (click)="changePage(1)">page suivant </span>  
+       <span id="myDIV" style="float: left;" type="submit" class="btn btnPrimary"  (click)="changePage(-1)">page précédente</span>
+      <span id="myDIV2" style="float: right;" type="submit" class="btn btnPrimary" (click)="changePage(1)">page suivante </span>  
     </div> 
 
     
     
   </div>
-  <br> <br> <br> <br> <br>
+  <br> <br> <br> 
 
   <div class="button" routerLink="/bataille">Retour</div>
   <div class="badge">page : {{page}} / {{maxpage}}</div>

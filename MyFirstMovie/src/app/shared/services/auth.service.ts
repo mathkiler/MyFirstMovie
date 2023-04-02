@@ -43,7 +43,6 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             
@@ -64,6 +63,7 @@ export class AuthService {
         up and returns promise */
         this.SendVerificationMail();
         this.SetUserData(result.user);
+        this.router.navigate(['sign-in']);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -91,23 +91,24 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log("uuuuuu", user)
     return (user !== null && user.emailVerified !== false) ? true : false;
   }
 
   // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+  GoogleAuth(setUservsTestBoolean:boolean) {
+    
+    return this.AuthLogin(new auth.GoogleAuthProvider(), setUservsTestBoolean).then((res: any) => {
       
     });
   }
   // Auth logic to run auth providers
-  AuthLogin(provider: any) {
+  AuthLogin(provider: any, setUservsTestBoolean:boolean) {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result.user)
-        this.SetUserData(result.user);
+        if (setUservsTestBoolean) {
+          this.SetUserData(result.user)
+        }
         this.router.navigate(['bataille']);
       })
       .catch((error) => {
@@ -129,6 +130,7 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
       voteVoter: false,
+      dateFinBatailleActu:0
     };
     console.log(userData.voteVoter)
     return userRef.set(userData, {

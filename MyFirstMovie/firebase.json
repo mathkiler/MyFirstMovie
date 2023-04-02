@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "MyFirstMovie",
-    "public": "src/",
+    "public": "dist/my-first-movie",
     "ignore": [
       "**/.*"
     ],
